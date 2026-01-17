@@ -1,4 +1,4 @@
-# Inverted-pendulum-segway-1-2-3-links-
+# Inverted-pendulum-segway-1-2-3-links
 Проект по дисциплине "Программированию роботов" (осень 2025)
 
 # Цель
