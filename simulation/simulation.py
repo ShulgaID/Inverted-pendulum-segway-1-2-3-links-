@@ -1,15 +1,14 @@
 import mujoco
 import mujoco.viewer
+import time
 from simulation.state_reader import StateReader
 from simulation.data_logger import DataLogger
 
 class Simulation:
     
-    def __init__(self, model_path: str, sim_end: float, controller):
+    def __init__(self, model_path: str, sim_end: float):
         self.model = mujoco.MjModel.from_xml_path(model_path)
         self.data = mujoco.MjData(self.model)
-
-        self.controller = controller
         self.state_reader = StateReader()
         self.logger = DataLogger()
 
@@ -21,19 +20,22 @@ class Simulation:
         self.data.qpos[2] = 0.0
         self.data.qpos[3] = 0.05
 
-    def run(self): # запуск симуляции
+    def run(self, controlller): # запуск симуляции
         viewer = mujoco.viewer.launch_passive(self.model, self.data)
+        viewer.cam.distance = 30.0
+        viewer.cam.azimuth = 180
 
         for _ in range(self.step_count):
             if not viewer.is_running:
                 break
 
             state = self.state_reader.read(self.data)
-            control = self.controller.compute(state)
-            self.data.ctrl[0] = control
+            self.data.ctrl[0] = controlller.compute(state)
 
-            self.logger.log(self.data.time, state, control)
+            self.logger.log(self.data.time, state, controlller.compute(state))
 
             mujoco.mj_step(self.model, self.data)
             viewer.sync()
+            
+            time.sleep(0.001)
         viewer.close()
