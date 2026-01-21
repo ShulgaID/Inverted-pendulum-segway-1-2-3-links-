@@ -1,4 +1,5 @@
 import pandas as pd
+import matplotlib.pyplot as plt
 from simulation.system_state import SystemState
 
 class DataLogger:
@@ -20,3 +21,33 @@ class DataLogger:
         pd.DataFrame(self.records).to_csv(filename, index=False)
         print(f"Данные сохранены в {filename}")
         
+    def show(self):
+        plt.subplot(2, 2, 1)
+        plt.plot([record["time"] for record in self.records], 
+                [record["cartPositionY"] for record in self.records],
+                '-', linewidth=2, label="cart pos")
+        plt.legend()
+        plt.grid()
+        
+        plt.subplot(2, 2, 2)
+        plt.plot([record["time"] for record in self.records],
+                [record["position1"] for record in self.records],
+                '-', linewidth=2, label="j1 pos")
+        plt.legend()
+        plt.grid()
+        
+        plt.subplot(2, 2, 3)
+        plt.plot([record["time"] for record in self.records],
+                [record["position2"] for record in self.records],
+                '-', linewidth=2, label="j2 pos")
+        plt.legend()
+        plt.grid()
+        
+        plt.subplot(2, 2, 4)
+        plt.plot([record["time"] for record in self.records],
+                [record["position3"] for record in self.records],
+                '-', linewidth=2, label="j3 pos")
+        plt.legend()
+        plt.grid()
+        
+        plt.show()
