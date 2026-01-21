@@ -1,10 +1,8 @@
-import numpy as np
+from abc import ABC, abstractmethod
 from simulation.system_state import SystemState
 
-class Controller(): # абстрактный регулятор
+class Controller(ABC): # абстрактный регулятор
     
-    def __init__(self, dt: float):
-        self.dt = dt
-    
-    def reset(self):
+    @abstractmethod
+    def compute(self, state: SystemState):
         pass
