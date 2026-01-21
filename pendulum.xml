@@ -15,7 +15,7 @@
         </body>
 
 <!-- Тележка -->
-        <body pos = '0 0 0.75'>
+        <body name = 'cart' pos = '0 0 0.75'>
             <joint name = 'cart' type = 'slide' axis = '0 1 0' />
             <geom type = 'box' size = '1.5 2 0.75'/>
 
@@ -62,7 +62,7 @@
 
 <!-- Управление тележкой -->
 	<actuator>
-        <motor name = "cartControl" joint="cart" gear = '100 0 0 0 0 0' ctrlrange="-10000 10000"/>
+        <motor name = "cartControl" joint="cart" gear = '10 0 0 0 0 0' ctrlrange="-10000 10000"/>
     </actuator>
 
 </mujoco>
