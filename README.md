@@ -71,10 +71,16 @@
 
 ## Получившиеся итоги
 
-Стабилизация обратного маятника с тележкой с помощью ПД регулятора:
+Стабилизация обратного маятника из одного звена с помощью ПД регулятора:
 
 ![Pendulum1Link](https://github.com/user-attachments/assets/4a8be64c-69a0-4eb5-b2f6-8a5c1dd018f0)
 
 
 <img width="466" height="255" alt="Position_link1" src="https://github.com/user-attachments/assets/0fc09ac5-96af-41dc-8df4-43d789d52a7e" />
 <img width="466" height="255" alt="Control_link1" src="https://github.com/user-attachments/assets/cc8c3609-dad0-4dd3-8936-4ac425ad2ac1" />
+
+---
+
+Стабилизация обратного маятника из трёх звеньев с помощью ПД регулятора:
+
+![Pendulum3Link](https://github.com/user-attachments/assets/4afbbe39-6071-440e-91d4-443840fdfa47)
