@@ -73,18 +73,16 @@
 
 Стабилизация обратного маятника из одного звена с помощью ПД регулятора:
 
-![Pendulum1Link](https://github.com/user-attachments/assets/4a8be64c-69a0-4eb5-b2f6-8a5c1dd018f0)
+![Pendulum1Link](https://github.com/user-attachments/assets/df242b75-9e50-42e7-a906-1d3f88e27495)
 
-
-<img width="466" height="255" alt="Position_link1" src="https://github.com/user-attachments/assets/0fc09ac5-96af-41dc-8df4-43d789d52a7e" />
-<img width="466" height="255" alt="Control_link1" src="https://github.com/user-attachments/assets/cc8c3609-dad0-4dd3-8936-4ac425ad2ac1" />
+<img width="466" height="255" alt="Position_link1" src="https://github.com/user-attachments/assets/1c2b96c4-ebd7-4fac-834a-e4d6af48e6f6" />
+<img width="466" height="255" alt="Control_link1" src="https://github.com/user-attachments/assets/4aa2d206-2f21-4ca1-be4b-5793115d1e81" />
 
 ---
-
 Стабилизация обратного маятника из трёх звеньев с помощью ПД регулятора:
 
-![Pendulum3Link](https://github.com/user-attachments/assets/4afbbe39-6071-440e-91d4-443840fdfa47)
+![Pendulum3Link](https://github.com/user-attachments/assets/06927749-d2ad-4324-b429-42d03f5501d0)
+<img width="466" height="255" alt="Position_link3" src="https://github.com/user-attachments/assets/37eb2a1c-0641-456c-ad55-def5486d02ae" />
+<img width="466" height="255" alt="Control_link3" src="https://github.com/user-attachments/assets/7ff7a14f-0734-4dc9-a9c7-0b59b68bec17" />
 
-<img width="466" height="255" alt="Position_link3" src="https://github.com/user-attachments/assets/6b55b6cb-2728-4f2d-adb6-c1e4f8e0f691" />
-<img width="466" height="255" alt="Control_link3" src="https://github.com/user-attachments/assets/99aca705-b5ac-4332-a00a-73ad406a52eb" />
 
