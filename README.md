@@ -84,3 +84,7 @@
 Стабилизация обратного маятника из трёх звеньев с помощью ПД регулятора:
 
 ![Pendulum3Link](https://github.com/user-attachments/assets/4afbbe39-6071-440e-91d4-443840fdfa47)
+
+<img width="466" height="255" alt="Position_link3" src="https://github.com/user-attachments/assets/6b55b6cb-2728-4f2d-adb6-c1e4f8e0f691" />
+<img width="466" height="255" alt="Control_link3" src="https://github.com/user-attachments/assets/99aca705-b5ac-4332-a00a-73ad406a52eb" />
+
