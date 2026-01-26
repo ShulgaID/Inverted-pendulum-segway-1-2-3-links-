@@ -59,7 +59,8 @@
 
 Проект имеет следующую структуру:
 
--**вставить чуть позже структуру**
+<img width="651" height="408" alt="image" src="https://github.com/user-attachments/assets/4e0543e1-23ef-40c3-81e7-808f14d91bfd" />
+
 
 ---
 
