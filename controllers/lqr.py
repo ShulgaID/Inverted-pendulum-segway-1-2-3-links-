@@ -11,36 +11,45 @@ class LQRController(Controller):
         self.R = R
         self.model = model
         self.data = data
-        self.cart = model.joint("cart").id
-        self.idx = [
-            self.cart, model.nq + self.cart,
-            self.cart+1, model.nq + self.cart+1,
-            self.cart+2, model.nq + self.cart+2,
-            self.cart+3, model.nq + self.cart+3]
-        self.x_eq = np.zeros(model.nq + model.nv)
-        self.x_eq[1:4] = np.pi
-        self.K = self.find_K()
+        self.nx = 8
+        self.nu = 1
+        self.eps = 1e-6
+        self.K = self.linearize()
         
-    def find_K(self) -> np.ndarray:
-        A = np.zeros((self.model.nq + self.model.nv, self.model.nq + self.model.nv))
-        B = np.zeros((self.model.nq + self.model.nv, self.model.nu))
+    def linearize(self):
+        A = np.zeros((self.nx, self.nx))
+        B = np.zeros((self.nx, self.nu))
+        x0 = np.concatenate([self.data.qpos[:4], self.data.qvel[:4]])
+        
+        for i in range(self.nx):
+            dx = np.zeros_like(x0)
+            dx[i] = self.eps
 
-        mujoco.mjd_transitionFD(
-            self.model,
-            self.data,
-            1e-6,
-            True,
-            A,
-            B,
-            None,
-            None)
+            x_plus = self.forward_dynamics(x0 + dx, np.zeros(self.nu))
+            x_minus = self.forward_dynamics(x0 - dx, np.zeros(self.nu))
 
-        A_red = A[np.ix_(self.idx, self.idx)]
-        B_red = B[self.idx, :]
-        P = solve_continuous_are(A_red, B_red, self.Q, self.R)
-        return np.linalg.inv(self.R) @ B_red.T @ P
+            A[:, i] = (x_plus - x_minus) / (2 * self.eps)
+
+        for i in range(self.nu):
+            du = np.zeros(self.nu)
+            du[i] = self.eps
+
+            u_plus = self.forward_dynamics(x0, du)
+            u_minus = self.forward_dynamics(x0, -du)
+
+            B[:, i] = (u_plus - u_minus) / (2 * self.eps)
+        
+        P = solve_continuous_are(A, B, self.Q, self.R)
+        return np.linalg.inv(self.R) @ B.T @ P
+    
+    def forward_dynamics(self, x: np.ndarray, u: np.ndarray) -> np.ndarray:
+        self.data.qpos[:4] = x[:4]
+        self.data.qvel[:4] = x[4:]
+        self.data.ctrl[:] = u
+        mujoco.mj_forward(self.model, self.data)
+        return np.concatenate([self.data.qvel[:4], self.data.qacc[:4]])
+        
         
     def compute(self, state: SystemState) -> float:
-        x = np.concatenate([self.data.qpos, self.data.qvel])
-        dx = x[self.idx] #- self.x_eq[self.idx] # равновесное состояние 
-        return -float(self.K @ dx)
+        error = [state.cart_pos, *state.angles, state.cart_vel, *state.velocities]
+        return -np.dot(self.K, error)
