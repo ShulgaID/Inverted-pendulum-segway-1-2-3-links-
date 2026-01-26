@@ -29,10 +29,23 @@ class PIDController(Controller):
     def compute(self, state: SystemState) -> float:
         theta = sum(l * a for l, a in zip(self.l, state.angles)) / self.l_sum
         d_theta = sum(l * v for l, v in zip(self.l, state.velocities)) / self.l_sum
-        a_desired, self.i_error_out = self.calculate_pid(self.kp_out, self.ki_out, self.kd_out, theta, self.i_error_out, d_theta)
         
-        cart_error = a_desired - state.cart_vel / self.dt
+        # Внешний контур
+        a_desired, self.i_error_out = self.calculate_pid(
+            self.kp_out, self.ki_out, self.kd_out,
+            -theta, self.i_error_out, -d_theta)
+        
+        if not hasattr(self, 'prev_cart_vel'):
+            self.prev_cart_vel = state.cart_vel
+        cart_acc = (state.cart_vel - self.prev_cart_vel) / self.dt
+        self.prev_cart_vel = state.cart_vel
+        
+        # Внутренний контур
+        cart_error = a_desired - cart_acc
         d_cart_error = (cart_error - self.prev_cart_error) / self.dt
         self.prev_cart_error = cart_error
-        u, self.i_error_in = self.calculate_pid(self.kp_in, self.ki_in, self.kd_in, cart_error, self.i_error_in, d_cart_error)
+        
+        u, self.i_error_in = self.calculate_pid(
+            self.kp_in, self.ki_in, self.kd_in,
+            cart_error, self.i_error_in, d_cart_error)
         return u
