@@ -86,4 +86,13 @@
 <img width="466" height="255" alt="Position_link3" src="https://github.com/user-attachments/assets/37eb2a1c-0641-456c-ad55-def5486d02ae" />
 <img width="466" height="255" alt="Control_link3" src="https://github.com/user-attachments/assets/7ff7a14f-0734-4dc9-a9c7-0b59b68bec17" />
 
+---
+
+Стабилизация обратного маятника из трёх звеньев с помощью LQR:
+
+![LQR3](https://github.com/user-attachments/assets/bc931932-177a-4735-9790-a9a46aa0d8cd)
+
+<img width="466" height="255" alt="Position_LQR_link3" src="https://github.com/user-attachments/assets/0dd9f1b9-948b-4d23-ae63-cf6b454d1b35" />
+<img width="466" height="255" alt="Control_LQR_link3" src="https://github.com/user-attachments/assets/414b90f8-1fbf-400c-a900-8524c379d160" />
+
 
