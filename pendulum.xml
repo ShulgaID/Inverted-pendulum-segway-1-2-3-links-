@@ -62,7 +62,8 @@
 
 <!-- Управление тележкой -->
 	<actuator>
-        <motor name = "cartControl" joint="cart" gear = '10 0 0 0 0 0' ctrlrange="-10000 10000"/>
+        <motor name = "cartControl" joint="cart" gear = '100 0 0 0 0 0' ctrlrange="-10000 10000"/>
     </actuator>
 
 </mujoco>
+
