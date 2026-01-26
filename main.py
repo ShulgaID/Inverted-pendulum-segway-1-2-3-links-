@@ -4,40 +4,40 @@ from controllers.lqr import LQRController
 from simulation.simulation import Simulation
 
 MODEL_PATH = "pendulum.xml"
-SIM_TIME = 10.0
+SIM_TIME = 50.0
 TIME_STEP = 0.001
 
 # параметры ПИД-регулятора
-KP = 120
-KI = 5
-KD = 25
-INT_LIMIT = 1000
-ANGLE_WEIGHTS = [50, 10, 100]
-VELOCITY_WEIGHTS = [10, 20, 50]
+LENGTHS = [1.0, 1.0, 1.0]
+KP_OUT = 180
+KI_OUT = 8
+KD_OUT = 35
+KP_IN = 1200
+KI_IN = 30
+KD_IN = 200
 
 # параметры LQR-регулятора
-Q = np.diag([
-    0.5, 0.05,   # карт
-    5.0, 0.5,    # 1 звено
-    4.0, 0.4,    # 2 звено
-    3.0, 0.3])   # 3 звено
-R = np.array([[50]])
+Q = np.diag([1, 3000, 2000, 3000, 
+            0.1, 500, 200, 300]) * 100
+R = np.array([[0.0001]])
 
 def main():
     
     simulation = Simulation(
     model_path=MODEL_PATH,
     sim_end=SIM_TIME)
+    simulation.initialize()
     
     """
     controller = PIDController(
         dt=TIME_STEP,
-        kp=KP,
-        ki=KI,
-        kd=KD,
-        int_limit=INT_LIMIT,
-        ang_weights=ANGLE_WEIGHTS,
-        vel_weights=VELOCITY_WEIGHTS)
+        lengths=LENGTHS,
+        kp_out=KP_OUT,
+        ki_out=KI_OUT,
+        kd_out=KD_OUT,
+        kp_in=KP_IN,
+        ki_in=KI_IN,
+        kd_in=KD_IN)
     """
     controller = LQRController(
         Q=Q,
@@ -46,7 +46,6 @@ def main():
         data=simulation.data)
     #"""
 
-    simulation.initialize()
     simulation.run(controller)
     simulation.logger.save_csv("pendulum_control.csv")
     simulation.logger.show()
