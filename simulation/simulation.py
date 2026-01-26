@@ -18,7 +18,7 @@ class Simulation:
     def initialize(self): # нач. условия звеньев
         self.data.qpos[1] = 0.0
         self.data.qpos[2] = 0.0
-        self.data.qpos[3] = 0.05
+        self.data.qpos[3] = 0.1
 
     def run(self, controlller): # запуск симуляции
         viewer = mujoco.viewer.launch_passive(self.model, self.data)
@@ -39,3 +39,4 @@ class Simulation:
             
             time.sleep(0.001)
         viewer.close()
+
